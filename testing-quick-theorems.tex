@@ -1,0 +1,64 @@
+\documentclass{article}
+
+%\usepackage{quick-theorems}
+%\usepackage[small-caps]{quick-theorems}
+%\usepackage[follow=global]{quick-theorems}
+%\usepackage[follow=subsection, swap-numbers]{quick-theorems}
+\usepackage[follow=global, counter=not-shared, qed=word, italics]{quick-theorems}
+
+% Add packages here to look for conflicts
+
+
+\title{Testing {\tt quick-theorems.sty}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This is just a small file to test the package {\tt quick-theorems.sty}.	
+\end{abstract}
+
+\section{First section}
+
+\subsection{First subsection}
+
+\begin{lemma}
+\label{lem:nice-lemma}
+Nice lemma here.
+\end{lemma}
+\begin{proof}
+Very long and complicated proof.	
+\end{proof}
+
+\begin{definition}[test1]
+\label{def:test1}
+	This is a place for a definition. A good one.
+\end{definition}
+
+\subsection{Second subsection}
+
+\begin{definition}[test2]
+	This is a place for a definition. Another good one.
+\end{definition}
+
+
+\begin{remark}
+Some unnecessary remark.
+\end{remark}
+Some sentence that might need some explanation. \shortproof{Some short explanation}
+
+\section{Second section}
+
+\begin{theorem}[Very Important Theorem]
+\label{thm:VIT}
+Big big theorem.
+\end{theorem}
+
+Theorem \ref{thm:VIT} follows from Lemma \ref{lem:nice-lemma}.
+
+
+
+
+	
+\end{document}

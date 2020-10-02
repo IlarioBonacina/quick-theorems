@@ -1,0 +1,444 @@
+% \iffalse meta-comment
+% !TEX program  = pdfLaTeX
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+quick-theorems --- A quick way to typeset the most common theorem-like environments
+E-mail: ilariobonacina@gmail.com
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+This package defines the most common theorem-like environments using the specifications from amsthm.sty.
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+quick-theorems --- A quick way to typeset the most common theorem-like environments
+E-mail: ilariobonacina@gmail.com
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+Copyright (C) 2020 by Ilario Bonacina <ilariobonacina@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL)
+version 1.3c of this license.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Ilario Bonacina.
+
+This work consists of the file  quick-theorems.dtx
+and the derived files           quick-theorems.ins,
+                                quick-theorems.pdf and
+                                quick-theorems.sty.
+\endpreamble
+\postamble
+\endpostamble
+\usedir{tex/latex/quick-theorems}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/quick-theorems}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/quick-theorems}
+\generate{
+  \file{README.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{quick-theorems}[2020/09/28 v1.0 Quick Theorems]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[svgnames]{xcolor}
+\usepackage{hyperref}
+\usepackage{lmodern}
+\usepackage{\jobname}
+%
+\newcommand\myshade{85}
+\colorlet{mylinkcolor}{NavyBlue}
+\colorlet{myurlcolor}{violet}
+%
+\hypersetup{
+  linkcolor  = mylinkcolor!\myshade!black,
+  urlcolor   = myurlcolor!\myshade!black,
+  colorlinks = true,
+}
+%
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+%\GetFileInfo{\jobname.sty}
+%
+%\title{^^A
+%  \textsf{quick-theorems} --- A quick way to typeset the most common theorem-like environments\thanks{^^A
+%    This file describes version \fileversion, last revised \filedate.^^A
+%  }^^A
+%}
+%\author{^^A
+%  Ilario Bonacina\thanks{E-mail: \url{ilariobonacina@gmail.com}}^^A
+%}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.0}{2020/09/28}{First public release}
+%\StopEventually{^^A
+%  \PrintChanges
+%  \PrintIndex
+%}
+%\tableofcontents
+%
+%\section{Introduction}
+%
+% This package defines the most common theorem-like environments following the specifications from {\tt amsthm.sty}. That is in \emph{plain} style we define environments for
+% \begin{quote}
+% Theorem, Lemma, Corollary, Proposition, Fact, Conjecture, Criterion, Assertion.	
+%\end{quote}
+%In \emph{definition} style we define environments for
+%\begin{quote}
+%	Definition, Acknowledgements, Condition, Problem, Open Problem, Example, Exercise, Algorithm, Question, Axiom, Property, Assumption, Hypothesis.
+%\end{quote}
+%Finally, in \emph{remark} style we define environments for
+%\begin{quote}
+%Remark, Note, Notation, Claim, Summary, Case, Conclusion.
+%\end{quote}
+%
+%\subsection{Features to add}
+%\begin{itemize}
+%\item add styling for theorems	with names, e.g. Gauss's Lemma
+%\item add support for Restated theorems
+%\item (maybe) define openproblem with the rest of the other commands, using \verb+\zap@space+
+%\end{itemize}
+% 
+%\subsection{Known Bugs}
+%\begin{itemize}
+%\item This package make use of \verb=\MakeUppercase= for the names of the environments, it breaks \verb=\autoref= in \verb=\sections= etc.
+%
+%\item The \verb=case= environment is usually used inside proofs. Its numbering should always restart from 1 when used. At the moment this is achieved manually with \verb=\setcounter{thecase}{0}= before the first usage of \verb=case=.
+%\item the \verb+\qed+ command conflicts with the definition from quick-math.
+%\end{itemize}
+%
+% \section{Usage}
+%
+% This package is loaded calling
+% \verb=\usepackage[<options>]{quick-theorems}=
+%in the preamble of your document. It defines the environments:\\ 
+%\begin{tabular}{ccccc}
+%	\verb=theorem= & \verb=lemma= & \verb=corollary= & \verb=proposition= &\verb=fact= 
+%	\\
+%	\verb=conjecture= & \verb=criterion= &\verb=assertion= &\verb=definition= & \verb=condition= \\ 
+%	\verb=problem= & \verb=example= &	\verb=exercise=& \verb=algorithm= & \verb=question= \\
+%	 \verb=axiom= &\verb=property= & \verb=assumption= &	\verb= hypothesis= & \verb=remark= 
+%	 \\ 
+%	 \verb=note= & \verb=notation= & \verb=claim= & \verb=summary=
+%	\verb=case= & \verb=conclusion= \\
+%	 \verb=openproblem= & \verb=acknowledgements=
+%\end{tabular}
+%
+%\medskip
+%\noindent The environments are used as usual, e.g.
+%\begin{verbatim}
+%\begin{theorem}
+%...an amazing theorem goes here...
+%\end{theorem}
+%\end{verbatim}
+%All the environments, except \verb=acknowledgements=, are numbered (as usual).
+% This package builds mainly upon \verb=amsthm.sty= and \verb=etoolbox.sty=.
+%
+%\subsection{Styling}
+%Through \verb=<options>= it is strightforward to apply some common styles on the environments. The possibilities are the following.
+%
+%\subsubsection{Fonts}
+%\DescribeMacro{small-caps}
+%By default the plain and definition style have the environment names in {\bfseries boldface}. With the option \verb+small-caps+ they are rendered {\scshape smallcaps}.
+%\DescribeMacro{slanted} 
+%\DescribeMacro{italics}
+%With the option \verb+slanted+ (default option) the \verb=proof= environment becomes  ``{\slshape Proof.}'' and not ``{\itshape Proof.}'' and the body of the plain-like environments is {\slshape slanted} and not {\itshape italics}. The option \verb+italics+ reverts this behaviour.
+%\subsubsection{Numbering}
+%
+%\DescribeMacro{swap-numbers}
+%\indent With this option the numbering precedes the name of the environment. The default behaviour is the opposite.
+%
+%\medskip
+%\DescribeMacro{counter=shared\\counter=not-shared}
+%\noindent This option tells if all the environments share the same counter (default) or each of them has its own counter.
+%
+%\medskip
+%\DescribeMacro{follow=global\\follow=chapter\\follow=section\\follow=subsection}
+%This option tells if the counter(s) should never reset (global), if they should reset at each chapter, section (default), subsection.
+%
+%
+%\subsubsection{QED styles}
+%This package provides some basic styling for the QED symbol redefining the command \verb=\qedsymbol=.
+%
+%\medskip%
+%\DescribeMacro{qed=word} {\sc q.e.d.}
+%
+%\DescribeMacro{qed=white} $\square$
+%
+%\DescribeMacro{qed=grey} \textcolor{black!50!white}{$\blacksquare$} (default)
+%
+%\DescribeMacro{qed=black} $\blacksquare$
+%\subsection{Macros}
+%\DescribeMacro{\NewTheoremStyled}
+% If the user needs to define some new theorem-like environment it can be done with \verb+\NewTheoremStyled{newtheorem}{style}+. It takes $2$ arguments, \verb+#1+ is the theorem name (the rendered name of the newtheorem is the same name but with the first letter uppercase), \verb+#2+ is the style (\verb!definition!, \verb!plain! or \verb!remark!).
+%\DescribeMacro{\shortproof}
+%The command \verb+\shortproof{Very short proof}+ can be used to isolate very short proofs, e.g. the previous example expands as  \shortproof{Very short proof}.
+%
+% \section{Implementation}
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%
+% We load the required packages.
+%	\begin{macrocode}
+\RequirePackage{xcolor} % for the option ``qed=grey''
+\RequirePackage{amsthm}
+\RequirePackage{amssymb}
+\RequirePackage{stmaryrd} % for the boldface brackets used in \shortproof
+\RequirePackage{etoolbox} 
+%    \end{macrocode}
+%
+% We create the options for the package
+%    \begin{macrocode}
+\DeclareOption{swap-numbers}{\swapnumbers}
+\newif\ifSmallCaps
+\DeclareOption{small-caps}{\SmallCapstrue}
+\newif\ifSlanted
+\DeclareOption{slanted}{\Slantedtrue\Italicsfalse}
+\newif\ifItalics
+\DeclareOption{italics}{\Italicstrue\Slantedfalse}
+\newif\ifSharedCounter
+\DeclareOption{counter=shared}{\SharedCountertrue}
+\DeclareOption{counter=not-shared}{\SharedCounterfalse}
+\newif\ifGlobalCounter
+\DeclareOption{follow=global}{\GlobalCountertrue}
+\DeclareOption{follow=chapter}{\def\@FollowCounter{chapter}}
+\DeclareOption{follow=section}{\def\@FollowCounter{section}}
+\DeclareOption{follow=subsection}{\def\@FollowCounter{subsection}}
+\newif\ifQEDWhite
+\DeclareOption{qed=white}{\QEDWhitetrue\QEDGreyfalse\QEDBlackfalse\QEDWordfalse}
+\newif\ifQEDGrey
+\DeclareOption{qed=grey}{\QEDGreytrue\QEDWhitefalse\QEDBlackfalse	\QEDWordfalse}
+\newif\ifQEDBlack
+\DeclareOption{qed=black}{\QEDBlacktrue\QEDWhitefalse\QEDGreyfalse\QEDWordfalse}
+\newif\ifQEDWord
+\DeclareOption{qed=word}{\QEDWordtrue\QEDWhitefalse\QEDGreyfalse\QEDBlackfalse}
+%    \end{macrocode}
+%We process the default options and relax.
+%    \begin{macrocode}
+\ExecuteOptions{slanted, counter=shared, follow=section, qed=grey}
+\ProcessOptions\relax
+%    \end{macrocode}
+%\subsection{Environment Definitions}
+% We use the \verb=\newtheoremstyle= commands from \verb=amstm.sty= to define the styles \verb=definition=, \verb=plain= and \verb=remark=. We let the corresponding headfonts to be customizable via the commands \verb=\@DefinitionHeadFont=, \verb=\@PlainHeadFont= and \verb=\@RemarkHeadFont=.
+%
+%\begin{macro}{\@NewTheorem}
+% This is the main command used to define the environments.
+%    \begin{macrocode}
+\newcommand\@NewTheorem[1]{%
+ \ifGlobalCounter
+  \ifSharedCounter
+    \expandafter\newtheorem{#1}[definition]{\MakeUppercase#1}
+  \else
+    \expandafter\newtheorem{#1}{\MakeUppercase#1}
+  \fi		
+ \else
+  \ifSharedCounter
+    \expandafter\newtheorem{#1}[definition]{\MakeUppercase#1}
+  \else
+    \expandafter\newtheorem{#1}{\MakeUppercase#1}[\@FollowCounter]
+  \fi
+ \fi
+}%
+%    \end{macrocode}
+%\end{macro}
+% If needed the user can define extra theorem-like environments with
+%\begin{macro}{\NewTheoremStyled}
+% It takes $2$ arguments, the first is the name of the theorem and the second is the style it should use (i.e. \verb!definition! or \verb!plain! or \verb!remark!). The printed name of the theorem is \emph{the same} as the command name but the first letter is uppercase.
+%    \begin{macrocode}
+\newcommand{\NewTheoremStyled}[2]{%
+\theoremstyle{#2}
+\@NewTheorem{#1}
+}%
+%    \end{macrocode}
+%\end{macro}
+%\subsubsection{Definition-like Environments}
+%\begin{macro}{\@DefinitionHeadFont}
+%    \begin{macrocode}
+\newcommand{\@DefinitionHeadFont}{\ifSmallCaps\scshape\else\bfseries\fi}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{definition}
+%    \begin{macrocode}
+\newtheoremstyle{definition}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\normalfont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\@DefinitionHeadFont} % HEADFONT
+  {.}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {}          % CUSTOM-HEAD-SPEC
+%
+\theoremstyle{definition}
+%    \end{macrocode}
+%\end{macro}
+% The environments \verb=definition=, \verb=acknowledgements= and \verb=openproblem= are defined by hand below. We start with \verb=definition=.
+%    \begin{macrocode}
+\ifGlobalCounter
+	\newtheorem{definition}{Definition}
+\else
+	\newtheorem{definition}{Definition}[\@FollowCounter]
+\fi
+%    \end{macrocode}
+% Then we define \verb=acknowledgements=. (It is defined separately as it is never numbered.)
+%    \begin{macrocode}
+\newtheorem*{acknowledgements}{Acknowledgements}
+%    \end{macrocode}
+% Then we define \verb=openproblem=. (It is defined separately as ``Open Problem'' are two words.)
+%    \begin{macrocode}
+\ifGlobalCounter
+ \ifSharedCounter
+   \newtheorem{openproblem}[definition]{Open Problem}
+ \else
+   \newtheorem{openproblem}{Open Problem}
+ \fi
+\else
+ \ifSharedCounter
+   \newtheorem{openproblem}[definition]{Open Problem}
+ \else
+   \newtheorem{openproblem}{Open Problem}[\@FollowCounter]
+ \fi
+\fi
+%    \end{macrocode}
+%
+% We now define all the other environments using the definition style. 
+%
+%	\begin{macrocode}
+\forcsvlist{\listadd\@DefinitionList}{condition, problem, example, %
+exercise, algorithm, question, axiom, property, assumption, hypothesis}
+\forlistloop\@NewTheorem{\@DefinitionList}
+%    \end{macrocode}
+%\subsubsection{Plain-like Environments}
+%\begin{macro}{\@PlainHeadFont}
+%	\begin{macrocode}
+\newcommand{\@PlainHeadFont}{\ifSmallCaps\scshape\else\bfseries\fi}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@PlainBodyFont}
+%    \begin{macrocode}
+\newcommand{\@PlainBodyFont}{\ifSlanted\slshape\fi\ifItalics\itshape\fi}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{plain}
+%    \begin{macrocode}
+\newtheoremstyle{plain}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\@PlainBodyFont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\@PlainHeadFont} % HEADFONT
+  {.}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {}          % CUSTOM-HEAD-SPEC
+%    \end{macrocode}
+%\end{macro}
+%    \begin{macrocode}
+\theoremstyle{plain}
+%
+\forcsvlist{\listadd\@PlainList}{theorem, lemma, corollary, proposition, %
+fact, conjecture, criterion, assertion}
+\forlistloop\@NewTheorem{\@PlainList}
+%    \end{macrocode}
+%\subsubsection{Remark-like Environments}
+%\begin{macro}{\@RemarkHeadFont}
+%	\begin{macrocode}
+\newcommand{\@RemarkHeadFont}{\ifSlanted\slshape\fi\ifItalics\itshape\fi}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{remark}
+%    \begin{macrocode}
+\newtheoremstyle{remark}
+  {0.5\topsep}   % ABOVESPACE
+  {0.5\topsep}   % BELOWSPACE
+  {\normalfont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\@RemarkHeadFont} % HEADFONT
+  {.}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {}          % CUSTOM-HEAD-SPEC
+%    \end{macrocode}
+%\end{macro}
+%    \begin{macrocode}
+\theoremstyle{remark}
+%
+\forcsvlist{\listadd\@RemarkList}{remark, note, notation, claim, %
+summary, case, conclusion}
+\forlistloop\@NewTheorem{\@RemarkList}
+%    \end{macrocode}
+%\subsection{Proof macros}
+% If the \verb=slanted= option is active we redefine \verb=\proofname=
+%	\begin{macrocode}
+\ifSlanted
+ \let\oldproofname=\proofname
+ \renewcommand{\proofname}{{\slshape\oldproofname}}
+\fi
+%    \end{macrocode}
+%\DescribeMacro{\shortproof}
+%We provide a command to isolate very short proofs.
+%    \begin{macrocode}
+\newcommand{\shortproof}[1]{$\llbracket$#1$\rrbracket$}
+%    \end{macrocode}
+%
+%Finally, we process the options relative to QED and redefine \verb=\qedsymbol= accordingly.
+%\DescribeMacro{\qedsymbol}
+%	\begin{macrocode}
+\renewcommand{\qedsymbol}{%
+ \ifQEDWhite {\scriptsize$\square$} \fi
+	\ifQEDGrey {\scriptsize\textcolor{black!50!white}{$\blacksquare$}} \fi 
+ \ifQEDBlack {\scriptsize$\blacksquare$} \fi
+ \ifQEDWord {\scshape q.e.d.} \fi
+}%
+%
+\endinput
+%    \end{macrocode}
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
+%\Finale

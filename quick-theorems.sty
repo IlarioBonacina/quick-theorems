@@ -1,0 +1,156 @@
+%%
+%% This is file `quick-theorems.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% quick-theorems.dtx  (with options: `package')
+%% ----------------------------------------------------------------
+%% quick-theorems --- A quick way to typeset the most common theorem-like environments
+%% E-mail: ilariobonacina@gmail.com
+%% Released under the LaTeX Project Public License v1.3c or later
+%% See http://www.latex-project.org/lppl.txt
+%% ----------------------------------------------------------------
+%% 
+%% Copyright (C) 2020 by Ilario Bonacina <ilariobonacina@gmail.com>
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License (LPPL)
+%% version 1.3c of this license.  The latest version of this license is in the file:
+%% 
+%% http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" (as per LPPL maintenance status) by
+%% Ilario Bonacina.
+%% 
+%% This work consists of the file  quick-theorems.dtx
+%% and the derived files           quick-theorems.ins,
+%%                                 quick-theorems.pdf and
+%%                                 quick-theorems.sty.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{quick-theorems}[2020/09/28 v1.0 Quick Theorems]
+\RequirePackage{xcolor} % for the option ``qed=grey''
+\RequirePackage{amsthm}
+\RequirePackage{amssymb}
+\RequirePackage{stmaryrd} % for the boldface brackets used in \shortproof
+\RequirePackage{etoolbox}
+\DeclareOption{swap-numbers}{\swapnumbers}
+\newif\ifSmallCaps
+\DeclareOption{small-caps}{\SmallCapstrue}
+\newif\ifSlanted
+\DeclareOption{slanted}{\Slantedtrue\Italicsfalse}
+\newif\ifItalics
+\DeclareOption{italics}{\Italicstrue\Slantedfalse}
+\newif\ifSharedCounter
+\DeclareOption{counter=shared}{\SharedCountertrue}
+\DeclareOption{counter=not-shared}{\SharedCounterfalse}
+\newif\ifGlobalCounter
+\DeclareOption{follow=global}{\GlobalCountertrue}
+\DeclareOption{follow=chapter}{\def\@FollowCounter{chapter}}
+\DeclareOption{follow=section}{\def\@FollowCounter{section}}
+\DeclareOption{follow=subsection}{\def\@FollowCounter{subsection}}
+\newif\ifQEDWhite
+\DeclareOption{qed=white}{\QEDWhitetrue\QEDGreyfalse\QEDBlackfalse\QEDWordfalse}
+\newif\ifQEDGrey
+\DeclareOption{qed=grey}{\QEDGreytrue\QEDWhitefalse\QEDBlackfalse \QEDWordfalse}
+\newif\ifQEDBlack
+\DeclareOption{qed=black}{\QEDBlacktrue\QEDWhitefalse\QEDGreyfalse\QEDWordfalse}
+\newif\ifQEDWord
+\DeclareOption{qed=word}{\QEDWordtrue\QEDWhitefalse\QEDGreyfalse\QEDBlackfalse}
+\ExecuteOptions{slanted, counter=shared, follow=section, qed=grey}
+\ProcessOptions\relax
+\newcommand\@NewTheorem[1]{%
+ \ifGlobalCounter
+  \ifSharedCounter
+    \expandafter\newtheorem{#1}[definition]{\MakeUppercase#1}
+  \else
+    \expandafter\newtheorem{#1}{\MakeUppercase#1}
+  \fi 
+ \else
+  \ifSharedCounter
+    \expandafter\newtheorem{#1}[definition]{\MakeUppercase#1}
+  \else
+    \expandafter\newtheorem{#1}{\MakeUppercase#1}[\@FollowCounter]
+  \fi
+ \fi
+}%
+\newcommand{\NewTheoremStyled}[2]{%
+\theoremstyle{#2}
+\@NewTheorem{#1}
+}%
+\newcommand{\@DefinitionHeadFont}{\ifSmallCaps\scshape\else\bfseries\fi}
+\newtheoremstyle{definition}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\normalfont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\@DefinitionHeadFont} % HEADFONT
+  {.}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {}          % CUSTOM-HEAD-SPEC
+\theoremstyle{definition}
+\ifGlobalCounter
+\newtheorem{definition}{Definition}
+\else
+\newtheorem{definition}{Definition}[\@FollowCounter]
+\fi
+\newtheorem*{acknowledgements}{Acknowledgements}
+\ifGlobalCounter
+ \ifSharedCounter
+   \newtheorem{openproblem}[definition]{Open Problem}
+ \else
+   \newtheorem{openproblem}{Open Problem}
+ \fi
+\else
+ \ifSharedCounter
+   \newtheorem{openproblem}[definition]{Open Problem}
+ \else
+   \newtheorem{openproblem}{Open Problem}[\@FollowCounter]
+ \fi
+\fi
+\forcsvlist{\listadd\@DefinitionList}{condition, problem, example, %
+exercise, algorithm, question, axiom, property, assumption, hypothesis}
+\forlistloop\@NewTheorem{\@DefinitionList}
+\newcommand{\@PlainHeadFont}{\ifSmallCaps\scshape\else\bfseries\fi}
+\newcommand{\@PlainBodyFont}{\ifSlanted\slshape\fi\ifItalics\itshape\fi}
+\newtheoremstyle{plain}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\@PlainBodyFont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\@PlainHeadFont} % HEADFONT
+  {.}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {}          % CUSTOM-HEAD-SPEC
+\theoremstyle{plain}
+\forcsvlist{\listadd\@PlainList}{theorem, lemma, corollary, proposition, %
+fact, conjecture, criterion, assertion}
+\forlistloop\@NewTheorem{\@PlainList}
+\newcommand{\@RemarkHeadFont}{\ifSlanted\slshape\fi\ifItalics\itshape\fi}
+\newtheoremstyle{remark}
+  {0.5\topsep}   % ABOVESPACE
+  {0.5\topsep}   % BELOWSPACE
+  {\normalfont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\@RemarkHeadFont} % HEADFONT
+  {.}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {}          % CUSTOM-HEAD-SPEC
+\theoremstyle{remark}
+\forcsvlist{\listadd\@RemarkList}{remark, note, notation, claim, %
+summary, case, conclusion}
+\forlistloop\@NewTheorem{\@RemarkList}
+\ifSlanted
+ \let\oldproofname=\proofname
+ \renewcommand{\proofname}{{\slshape\oldproofname}}
+\fi
+\newcommand{\shortproof}[1]{$\llbracket$#1$\rrbracket$}
+\renewcommand{\qedsymbol}{%
+ \ifQEDWhite {\scriptsize$\square$} \fi
+\ifQEDGrey {\scriptsize\textcolor{black!50!white}{$\blacksquare$}} \fi
+ \ifQEDBlack {\scriptsize$\blacksquare$} \fi
+ \ifQEDWord {\scshape q.e.d.} \fi
+}%
+%% 
+%%
+%% End of file `quick-theorems.sty'.
