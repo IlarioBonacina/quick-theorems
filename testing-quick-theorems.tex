@@ -7,6 +7,15 @@
 \usepackage[follow=global, counter=not-shared, qed=word, italics]{quick-theorems}
 
 % Add packages here to look for conflicts
+\usepackage{cleveref} % in principle this should behave as expected
+%\usepackage{hyperref} % \autoref sometimes works and sometimes not. I've no idea why.
+
+% New custom theorems test
+\NewTheoremStyled{teorema}{plain}
+
+
+
+
 
 
 \title{Testing {\tt quick-theorems.sty}}
@@ -55,7 +64,7 @@ Some sentence that might need some explanation. \shortproof{Some short explanati
 Big big theorem.
 \end{theorem}
 
-Theorem \ref{thm:VIT} follows from Lemma \ref{lem:nice-lemma}.
+\Cref{thm:VIT} follows from \Cref{lem:nice-lemma}.
 
 
 
